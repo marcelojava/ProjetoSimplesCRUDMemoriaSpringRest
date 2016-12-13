@@ -1,7 +1,0 @@
-br/com/pacote/dto/DimensaoDTO.class
-br/com/pacote/app/App.class
-br/com/pacote/dto/ProdutoDTO.class
-br/com/pacote/modelo/Produto.class
-br/com/pacote/servico/ProdutoServico.class
-br/com/pacote/modelo/Dimensao.class
-br/com/pacote/controller/ProdutoController.class
