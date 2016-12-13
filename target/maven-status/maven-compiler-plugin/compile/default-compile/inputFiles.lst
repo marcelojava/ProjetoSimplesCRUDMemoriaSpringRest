@@ -1,1 +1,7 @@
-/home/marcelo/Documentos/projetos_pessoais/CrudSpringBootAndRestInMemory/src/main/java/br/com/pacote/WebConfig.java
+/home/marcelo/Documentos/projetos_pessoais/CrudSpringBootAndRestInMemory/src/main/java/br/com/pacote/servico/ProdutoServico.java
+/home/marcelo/Documentos/projetos_pessoais/CrudSpringBootAndRestInMemory/src/main/java/br/com/pacote/modelo/Produto.java
+/home/marcelo/Documentos/projetos_pessoais/CrudSpringBootAndRestInMemory/src/main/java/br/com/pacote/controller/ProdutoController.java
+/home/marcelo/Documentos/projetos_pessoais/CrudSpringBootAndRestInMemory/src/main/java/br/com/pacote/modelo/Dimensao.java
+/home/marcelo/Documentos/projetos_pessoais/CrudSpringBootAndRestInMemory/src/main/java/br/com/pacote/dto/ProdutoDTO.java
+/home/marcelo/Documentos/projetos_pessoais/CrudSpringBootAndRestInMemory/src/main/java/br/com/pacote/dto/DimensaoDTO.java
+/home/marcelo/Documentos/projetos_pessoais/CrudSpringBootAndRestInMemory/src/main/java/br/com/pacote/app/App.java

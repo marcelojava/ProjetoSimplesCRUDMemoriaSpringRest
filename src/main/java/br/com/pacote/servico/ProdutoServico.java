@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.com.pacote.exception.NotFoundException;
 import br.com.pacote.modelo.Produto;
 
 @Service
@@ -13,14 +14,19 @@ public class ProdutoServico {
 	private List<Produto> produtos = new ArrayList<>();
 
 	public List<Produto> findAll() {
-		return this.produtos;
+		
+		List<Produto> prod = this.produtos;
+		
+		if (prod.isEmpty())
+			throw new NotFoundException("Não existe nenhum pedido na base");
+		return prod;
 	}
 
 	public Produto findBySky(final Long sku) {
 		Produto produto = this.find(sku);
 
 		if (produto == null)
-			throw new RuntimeException("Sku não foi encontrado");
+			throw new NotFoundException("Sku não foi encontrado");
 		return produto;
 	}
 
@@ -35,7 +41,7 @@ public class ProdutoServico {
 		Produto prod = find(sku);
 
 		if (prod == null)
-			throw new RuntimeException("Sku não foi encontrado");
+			throw new NotFoundException("Sku não foi encontrado");
 
 		final int index = this.produtos.indexOf(prod);
 		this.produtos.add(index, produto);
@@ -43,7 +49,7 @@ public class ProdutoServico {
 
 	public void delete(final Long sku) {
 		if (!this.isExisteProduto(sku))
-			throw new RuntimeException("Sku não foi encontrado");
+			throw new NotFoundException("Sku não foi encontrado");
 
 		this.produtos.removeIf(s -> s.getSku().equals(sku));
 	}
