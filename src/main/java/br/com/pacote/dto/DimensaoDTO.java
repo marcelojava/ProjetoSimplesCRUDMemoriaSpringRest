@@ -1,5 +1,7 @@
 package br.com.pacote.dto;
 
+import br.com.pacote.modelo.Dimensao;
+
 public class DimensaoDTO {
 
 	private double peso;
@@ -10,11 +12,11 @@ public class DimensaoDTO {
 	public DimensaoDTO() {
 	}
 
-	public DimensaoDTO(double peso, double altura, double largura, double tamanho) {
-		this.peso = peso;
-		this.altura = altura;
-		this.largura = largura;
-		this.tamanho = tamanho;
+	public DimensaoDTO(Dimensao dimensao) {
+		this.peso = dimensao.getPeso();
+		this.altura = dimensao.getAltura();
+		this.largura = dimensao.getLargura();
+		this.tamanho = dimensao.getTamanho();
 	}
 
 	public double getPeso() {

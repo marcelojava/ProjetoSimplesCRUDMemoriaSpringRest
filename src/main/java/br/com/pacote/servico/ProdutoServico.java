@@ -2,6 +2,7 @@ package br.com.pacote.servico;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -14,36 +15,32 @@ public class ProdutoServico {
 	private List<Produto> produtos = new ArrayList<>();
 
 	public List<Produto> findAll() {
-		
-		List<Produto> prod = this.produtos;
-		
-		if (prod.isEmpty())
-			throw new NotFoundException("Não existe nenhum pedido na base");
-		return prod;
+		return this.produtos;
 	}
 
 	public Produto findBySky(final Long sku) {
-		Produto produto = this.find(sku);
+		Optional<Produto> prod = this.find(sku);
 
-		if (produto == null)
-			throw new NotFoundException("Sku não foi encontrado");
-		return produto;
+		if (prod.isPresent())
+			return prod.get();
+		
+		throw new NotFoundException("Sku não foi encontrado");
 	}
 
 	public void create(final Produto produto) {
 		if (this.isExisteProduto(produto.getSku()))
 			throw new RuntimeException("Produto já existe com o sku enviado");
-
+		
 		this.produtos.add(produto);
 	}
 
 	public void update(Long sku, Produto produto) {
-		Produto prod = find(sku);
+		Optional<Produto> prod = find(sku);
 
-		if (prod == null)
+		if (!prod.isPresent())
 			throw new NotFoundException("Sku não foi encontrado");
 
-		final int index = this.produtos.indexOf(prod);
+		final int index = this.produtos.indexOf(prod.get());
 		this.produtos.add(index, produto);
 	}
 
@@ -54,8 +51,8 @@ public class ProdutoServico {
 		this.produtos.removeIf(s -> s.getSku().equals(sku));
 	}
 
-	private Produto find(final Long sku) {
-		return this.produtos.stream().filter(s -> s.getSku().equals(sku)).findFirst().orElse(null);
+	private Optional<Produto> find(final Long sku) {
+		return this.produtos.stream().filter(s -> s.getSku().equals(sku)).findFirst();
 	}
 
 	private boolean isExisteProduto(final Long sku) {

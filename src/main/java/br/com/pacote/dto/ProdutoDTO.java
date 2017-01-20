@@ -3,6 +3,8 @@ package br.com.pacote.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.pacote.modelo.Produto;
+
 public class ProdutoDTO {
 
 	private Long sku;
@@ -15,13 +17,13 @@ public class ProdutoDTO {
 	public ProdutoDTO() {
 	}
 
-	public ProdutoDTO(Long sku, String nome, String descricao, String ean, DimensaoDTO dimensao, List<String> imagens) {
-		this.sku = sku;
-		this.nome = nome;
-		this.descricao = descricao;
-		this.ean = ean;
-		this.dimensao = dimensao;
-		this.imagens = imagens;
+	public ProdutoDTO(Produto produto) {
+		this.sku = produto.getSku();
+		this.nome = produto.getNome();
+		this.descricao = produto.getDescricao();
+		this.ean = produto.getEan();
+		this.dimensao = new DimensaoDTO(produto.getDimensao());
+		this.imagens = produto.getImagens();
 	}
 
 	public Long getSku() {
