@@ -1,6 +1,7 @@
 package br.com.pacote.servico;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,11 @@ public class UserServico {
 	@Autowired
 	private UserRepository repository;
 	
-	public List<User> findAll(Pageable pageable) {
+	public Optional<List<User>> findAll(Pageable pageable) {
 		logger.info("Buscando usuario na base");
 		Page<User> page = this.repository.findAll(pageable);
 		
-		return page.getContent();
+		return Optional.ofNullable(page.getContent());
 	}
 	
 	public void save(User user) {

@@ -25,14 +25,10 @@ public class UserController {
 
 	@RequestMapping(value = "user", method = RequestMethod.GET)
 	public ResponseEntity<List<UserDTO>> findAll(Pageable pageable) {
-		List<User> users = this.userServico.findAll(pageable);
-
-		if (users.isEmpty())
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		
-		List<UserDTO> userDtos = users.stream().map(UserDTO::new).collect(toList());
-
-		return new ResponseEntity<>(userDtos, HttpStatus.OK);
+		return this.userServico.findAll(pageable).
+				map(user -> new ResponseEntity<>(user.stream().
+						map(UserDTO::new).collect(toList()), HttpStatus.OK)).
+				orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
 	@RequestMapping(value = "user", method = RequestMethod.POST)
