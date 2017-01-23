@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +24,8 @@ public class UserController {
 	private UserServico userServico;
 
 	@RequestMapping(value = "user", method = RequestMethod.GET)
-	public ResponseEntity<List<UserDTO>> findAll() {
-		List<User> users = this.userServico.findAll();
+	public ResponseEntity<List<UserDTO>> findAll(Pageable pageable) {
+		List<User> users = this.userServico.findAll(pageable);
 
 		if (users.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -39,4 +40,5 @@ public class UserController {
 		this.userServico.save(user);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
+	
 }
