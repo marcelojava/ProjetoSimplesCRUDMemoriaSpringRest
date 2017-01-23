@@ -26,10 +26,14 @@ public class UserServico {
 		
 		return Optional.ofNullable(page.getContent());
 	}
-	
+
+	public Optional<User> findUser(String userName, String password) {
+		logger.info("buscando usuario pelo username e password");
+		return this.repository.findUserByUserNameAndPassword(userName, password);
+	}
+
 	public void save(User user) {
 		logger.info("salvando novo usuario na base");
 		this.repository.save(user);
 	}
-
 }
