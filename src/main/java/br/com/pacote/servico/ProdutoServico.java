@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import br.com.pacote.exception.NotFoundException;
@@ -14,9 +12,6 @@ import br.com.pacote.modelo.Produto;
 @Service
 public class ProdutoServico {
 	
-	@Autowired
-	private MongoTemplate mongoTemplate;
-
 	private List<Produto> produtos = new ArrayList<>();
 
 	public List<Produto> findAll() {
