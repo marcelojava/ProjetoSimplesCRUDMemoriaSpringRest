@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Service;
 
 import br.com.pacote.modelo.User;
@@ -17,9 +16,6 @@ import br.com.pacote.repositories.UserRepository;
 public class UserServico {
 	
 	private  final static Logger logger = Logger.getLogger(UserServico.class);
-	
-	@Autowired
-	private MongoOperations mongoOperations;
 	
 	@Autowired
 	private UserRepository repository;
@@ -33,7 +29,7 @@ public class UserServico {
 	
 	public void save(User user) {
 		logger.info("salvando novo usuario na base");
-		this.mongoOperations.save(user);
+		this.repository.save(user);
 	}
 
 }
