@@ -3,6 +3,7 @@ package br.com.pacote.controller;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,18 +39,29 @@ public class UserController {
 				map(UserDTO::new).collect(toList()), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "user", method = RequestMethod.POST)
-	public ResponseEntity<Void> save(@RequestBody User user) {
-		this.userServico.save(user);
-		return new ResponseEntity<>(HttpStatus.CREATED);
-	}
-	
-	@RequestMapping(value = "user/{username}/{password}")
+	@RequestMapping(value = "user/{username}/{password}", method = RequestMethod.GET)
 	public UserDTO findUser(@PathVariable("username") String userName,
 			@PathVariable("password") String passWord,
 			HttpServletResponse httpServletResponse) {
 		return this.userServico.findUser(userName, passWord)
 				.map(UserDTO::new)
 				.orElseGet(() -> {httpServletResponse.setStatus(404); return null;});
+	}
+	
+	@RequestMapping(value = "user/{username}", method = RequestMethod.GET)
+	public Map<String, Boolean> isExisteUserName(@PathVariable("username") String userName) {
+		return this.userServico.findUserByUserName(userName);
+	}
+	
+	@RequestMapping(value = "user", method = RequestMethod.POST)
+	public ResponseEntity<Void> save(@RequestBody User user) {
+		this.userServico.save(user);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "user", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody User user) {
+		this.userServico.save(user);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 }

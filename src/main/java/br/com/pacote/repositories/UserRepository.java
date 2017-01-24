@@ -11,4 +11,5 @@ import br.com.pacote.modelo.User;
 public interface UserRepository extends PagingAndSortingRepository<User, String>{
 	
 	Optional<User> findUserByUserNameAndPassword(String userName, String password);
+	Optional<User> findUserByUserName(String userName);
 }

@@ -1,6 +1,8 @@
 package br.com.pacote.servico;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
@@ -30,6 +32,13 @@ public class UserServico {
 	public Optional<User> findUser(String userName, String password) {
 		logger.info("buscando usuario pelo username e password");
 		return this.repository.findUserByUserNameAndPassword(userName, password);
+	}
+	
+	public Map<String, Boolean> findUserByUserName(String userName) {
+		Map<String, Boolean> mapa = new HashMap<>();
+		boolean isExisteUser = this.repository.findUserByUserName(userName).isPresent();
+		mapa.put("existeUsuario", isExisteUser);
+		return mapa;
 	}
 
 	public void save(User user) {
