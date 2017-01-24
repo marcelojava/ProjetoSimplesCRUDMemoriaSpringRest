@@ -20,11 +20,11 @@ public class UserServico {
 	@Autowired
 	private UserRepository repository;
 	
-	public Optional<List<User>> findAll(Pageable pageable) {
+	public List<User> findAll(Pageable pageable) {
 		logger.info("Buscando usuario na base");
 		Page<User> page = this.repository.findAll(pageable);
 		
-		return Optional.ofNullable(page.getContent());
+		return page.getContent();
 	}
 
 	public Optional<User> findUser(String userName, String password) {

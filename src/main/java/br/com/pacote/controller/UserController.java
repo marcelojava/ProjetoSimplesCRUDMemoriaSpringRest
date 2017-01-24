@@ -28,10 +28,14 @@ public class UserController {
 
 	@RequestMapping(value = "user", method = RequestMethod.GET)
 	public ResponseEntity<List<UserDTO>> findAll(Pageable pageable) {
-		return this.userServico.findAll(pageable).
-				map(user -> new ResponseEntity<>(user.stream().
-						map(UserDTO::new).collect(toList()), HttpStatus.OK)).
-				orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+		
+		List<User> users = this.userServico.findAll(pageable);
+		
+		if (users.isEmpty()) 
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		return new ResponseEntity<>(users.stream().
+				map(UserDTO::new).collect(toList()), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "user", method = RequestMethod.POST)
@@ -45,7 +49,7 @@ public class UserController {
 			@PathVariable("password") String passWord,
 			HttpServletResponse httpServletResponse) {
 		return this.userServico.findUser(userName, passWord)
-				.map(user -> new UserDTO(user))
+				.map(UserDTO::new)
 				.orElseGet(() -> {httpServletResponse.setStatus(404); return null;});
 	}
 }
