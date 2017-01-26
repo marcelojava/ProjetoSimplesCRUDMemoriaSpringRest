@@ -35,6 +35,7 @@ public class UserServico {
 	}
 	
 	public Map<String, Boolean> findUserByUserName(String userName) {
+		logger.info("verificando se existe algum usuario com o mesmo login");
 		Map<String, Boolean> mapa = new HashMap<>();
 		boolean isExisteUser = this.repository.findUserByUserName(userName).isPresent();
 		mapa.put("existeUsuario", isExisteUser);
